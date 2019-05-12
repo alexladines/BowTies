@@ -13,8 +13,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
+  
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    guard let vc = window?.rootViewController as? BowTiesViewController else {
+      return true
+    }
+    
+    vc.managedContext = persistentContainer.viewContext
+    
     return true
+//    // Save test entity
+//    let bowtie = NSEntityDescription.insertNewObject(forEntityName: "BowTie", into: self.persistentContainer.viewContext) as! BowTie
+//    bowtie.name = "My bow tie."
+//    bowtie.lastWorn = NSDate()
+//    saveContext()
+//
+//    // Retrieve test bow tie
+//    let request: NSFetchRequest<BowTie> = BowTie.fetchRequest()
+//
+//    if let ties =
+//    try? self.persistentContainer.viewContext.fetch(request),
+//    let testName = ties.first?.name,
+//      let testLastWorn = ties.first?.lastWorn {
+//      print("Name: \(testName), Worn: \(testLastWorn)")
+//    }
+//    else {
+//        print("Test Failed.")
+//    }
+//    return true
   }
 
   func applicationWillTerminate(_ application: UIApplication) {
