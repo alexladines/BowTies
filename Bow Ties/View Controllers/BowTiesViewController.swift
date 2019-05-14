@@ -12,6 +12,7 @@ class BowTiesViewController: UIViewController {
 
   // MARK: - Properties
   var managedContext: NSManagedObjectContext!
+  var currentBowTie: BowTie!
   
   // MARK: - IBOutlets
   @IBOutlet weak var segmentedControl: UISegmentedControl!
@@ -27,6 +28,8 @@ class BowTiesViewController: UIViewController {
     super.viewDidLoad()
     
     insertSampleData()
+    
+    
   }
 
   // MARK: - IBActions
@@ -35,7 +38,16 @@ class BowTiesViewController: UIViewController {
   }
 
   @IBAction func wear(_ sender: Any) {
-
+    let times = currentBowTie.timesWorn
+    currentBowTie.timesWorn = times + 1
+    currentBowTie.lastWorn = NSDate()
+    do {
+      try managedContext.save()
+      populate(bowtie: currentBowTie)
+    }
+    catch let error as NSError {
+      print("Could not fetch \(error), \(error.userInfo)")
+    }
   }
   
   @IBAction func rate(_ sender: Any) {
